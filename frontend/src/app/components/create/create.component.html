@@ -1,0 +1,69 @@
+<div class="container" *ngIf="project">
+  <h2>{{ title }}</h2>
+
+  <form #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)">
+
+    <div *ngIf="status == 'success'" class="alert alert-success" role="alert">
+      El proyecto se ha creado correctamente, puedes <a [routerLink]="['/proyecto', saveProject._id]">verlo aqui</a>
+    </div>
+
+    <div *ngIf="status == 'failed'" class="alert alert-danger" role="alert">
+      El proyecto no se pudo crear
+    </div>
+
+  <div class="form-group">
+    <label for="name">Nombre</label>
+    <input class="form-control" type="text" name ="name" #name="ngModel" [(ngModel)]="project.name" required />
+    <div *ngIf="name.touched && !name.valid" class="alert alert-danger" role="alert">
+      El nombre no es valido
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Descripcion</label>
+    <textarea class="form-control" name= "description" #description="ngModel"  [(ngModel)]="project.description" required></textarea>
+    <div *ngIf="description.touched && !description.valid" class="alert alert-danger" role="alert">
+      La descripcion no es valida
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="category">Categoria</label>
+    <input class="form-control" type="text" name= "category" #category="ngModel"  [(ngModel)]="project.category" required/>
+    <div *ngIf="category.touched && !category.valid" class="alert alert-danger" role="alert">
+      La categoria no es valida
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="year">Año de lanzamiento</label>
+    <input class="form-control" type="number" name= "year" #year="ngModel"  [(ngModel)]="project.year" required>
+    <div *ngIf="year.touched && !year.valid" class="alert alert-danger" role="alert">
+      El año no es valido
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="langs">Lenguajes de programacion utilizados</label>
+    <input class="form-control" type="text" name= "langs" #langs="ngModel"  [(ngModel)]="project.langs" required>
+    <div *ngIf="langs.touched && !langs.valid" class="alert alert-danger" role="alert">
+      El lenguaje no es valido
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="image">Imagen</label>
+    <br>
+    <span class="image" style="float:none;">
+      <img src="{{url+'getImage/'+project.image}}" *ngIf="project.image" style="width:100px"/>
+    </span>
+    <input class="form-control" type="file" placeholder="Subir Imagen"  (change)="fileChangeEvent($event)"/>
+  </div>
+
+  <div class="form-group">
+    <input id="create-boton" type="submit" value="Enviar" class="btn btn-primary" [disabled]="!projectForm.form.valid">
+  </div>
+
+
+  </form>
+</div>
